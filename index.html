@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Page</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <input name="username" required placeholder="Username"><br>
+    <input name="password" type="password" required placeholder="Password"><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <h1>Register</h1>
+  <form id="registerForm">
+    <input name="username" required placeholder="Username"><br>
+    <input name="password" type="password" required placeholder="Password"><br>
+    <button type="submit">Register</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const backendUrl = "https://your-backend.onrender.com"; // CHANGE THIS after deploying backend
+
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const res = await fetch(backendUrl + "/login.php", {
+        method: "POST",
+        body: formData
+      });
+      const text = await res.text();
+      document.getElementById("message").innerHTML = text;
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const res = await fetch(backendUrl + "/register.php", {
+        method: "POST",
+        body: formData
+      });
+      const text = await res.text();
+      document.getElementById("message").innerHTML = text;
+    });
+  </script>
+</body>
+</html>
